@@ -1,0 +1,46 @@
+# Activité Pratique N°2 – Architecture Micro-services avec Spring Cloud
+
+Application e-commerce découpée en micro-services : gestion des clients, gestion des produits et facturation, reliés par un annuaire Eureka, une passerelle Spring Cloud Gateway et une configuration centralisée avec Spring Cloud Config.
+
+## Environnement et versions
+
+| Outil | Version |
+|---|---|
+| JDK | 17 |
+| Maven | 3.9 (Maven Wrapper inclus : `mvnw` / `mvnw.cmd`) |
+| Spring Boot | 3.4.4 |
+| Spring Cloud | 2024.0.3 |
+| Base de données | H2 (en mémoire) |
+| IDE | IntelliJ IDEA |
+
+Toutes les versions sont centralisées dans le `pom.xml` parent `net.salma.ecom:ecom-app:1.0.0` : il hérite de `spring-boot-starter-parent` 3.4.4 et importe le BOM `spring-cloud-dependencies` 2024.0.3. Chaque micro-service déclare ce pom comme parent et liste ses dépendances sans aucune version.
+
+## Dépendances par service
+
+| Service | Dépendances |
+|---|---|
+| `customer-service` | Spring Web, Data JPA, Data REST, H2, Lombok, Eureka Client, Config Client, Actuator |
+| `inventory-service` | Spring Web, Data JPA, Data REST, H2, Lombok, Eureka Client, Config Client, Actuator |
+| `billing-service` | Spring Web, Data JPA, Data REST, HATEOAS, OpenFeign, H2, Lombok, Eureka Client, Config Client |
+| `discovery-service` | Eureka Server |
+| `gateway-service` | Spring Cloud Gateway, Eureka Client, Config Client, Actuator |
+| `config-service` | Config Server, Eureka Client, Actuator |
+
+## Architecture
+
+| Service | Port | Package | Rôle |
+|---|---|---|---|
+| `discovery-service` | 8761 | `net.salma.ecom.discoveryservice` | Annuaire Eureka |
+| `config-service` | 9999 | `net.salma.ecom.configservice` | Configuration centralisée (dossier `config-repo`) |
+| `gateway-service` | 8888 | `net.salma.ecom.gatewayservice` | Passerelle Spring Cloud Gateway |
+| `customer-service` | 8081 | `net.salma.ecom.customerservice` | Gestion des clients |
+| `inventory-service` | 8082 | `net.salma.ecom.inventoryservice` | Gestion des produits |
+| `billing-service` | 8083 | `net.salma.ecom.billingservice` | Facturation (OpenFeign vers clients et produits) |
+
+## Construire
+
+```bash
+./mvnw clean package -DskipTests
+```
+
+Sous Windows : `mvnw.cmd clean package -DskipTests`. Ouvrir le dossier racine dans IntelliJ IDEA : le `pom.xml` parent importe tous les modules.
