@@ -88,3 +88,19 @@ Première version : deux routes déclarées dans `application.yml`, vers `lb://C
 **Produits via la passerelle** : `GET http://localhost:8888/api/products`
 
 ![Route statique produits](captures/04-gateway-service/route-statique-produits.png)
+
+### Routes dynamiques
+
+Les routes statiques sont remplacées par un `DiscoveryClientRouteDefinitionLocator` : chaque service enregistré dans Eureka devient accessible sous `/<nom-du-service>/**`, sans aucune route à écrire.
+
+**Clients** : `GET http://localhost:8888/customer-service/api/customers`
+
+![Route dynamique clients](captures/04-gateway-service/route-dynamique-clients.png)
+
+**Produits** : `GET http://localhost:8888/inventory-service/api/products`
+
+![Route dynamique produits](captures/04-gateway-service/route-dynamique-produits.png)
+
+**Eureka avec la passerelle enregistrée**
+
+![Eureka avec la passerelle](captures/04-gateway-service/eureka.png)
