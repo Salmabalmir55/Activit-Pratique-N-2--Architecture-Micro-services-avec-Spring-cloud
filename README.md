@@ -44,3 +44,19 @@ Toutes les versions sont centralisées dans le `pom.xml` parent `net.salma.ecom:
 ```
 
 Sous Windows : `mvnw.cmd clean package -DskipTests`. Ouvrir le dossier racine dans IntelliJ IDEA : le `pom.xml` parent importe tous les modules.
+
+## 1. customer-service
+
+Micro-service de gestion des clients : l'entité JPA `Customer` est stockée dans une base H2 et exposée automatiquement en REST par Spring Data REST sous `/api`, avec deux projections (`all` et `email`). Trois clients de test sont créés au démarrage.
+
+**Liste des clients** : `GET http://localhost:8081/api/customers`
+
+![Liste des clients](captures/01-customer-service/clients.png)
+
+**Projection `email`** : `GET http://localhost:8081/api/customers?projection=email`
+
+![Projection email](captures/01-customer-service/projection-email.png)
+
+**Un client avec la projection `all`** : `GET http://localhost:8081/api/customers/1?projection=all`
+
+![Projection all](captures/01-customer-service/projection-all.png)
