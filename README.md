@@ -68,3 +68,9 @@ Micro-service de gestion des produits : l'entité `Product`, identifiée par un 
 **Liste des produits** : `GET http://localhost:8082/api/products`
 
 ![Liste des produits](captures/02-inventory-service/produits.png)
+
+## 3. discovery-service (Eureka)
+
+Annuaire des services sur le port 8761. `customer-service` et `inventory-service` s'y enregistrent au démarrage.
+
+![Eureka](captures/03-discovery-service/eureka.png)
