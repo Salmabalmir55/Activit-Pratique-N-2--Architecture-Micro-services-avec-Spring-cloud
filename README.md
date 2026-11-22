@@ -60,3 +60,11 @@ Micro-service de gestion des clients : l'entité JPA `Customer` est stockée dan
 **Un client avec la projection `all`** : `GET http://localhost:8081/api/customers/1?projection=all`
 
 ![Projection all](captures/01-customer-service/projection-all.png)
+
+## 2. inventory-service
+
+Micro-service de gestion des produits : l'entité `Product`, identifiée par un UUID, est exposée par Spring Data REST. Trois produits de test sont créés au démarrage.
+
+**Liste des produits** : `GET http://localhost:8082/api/products`
+
+![Liste des produits](captures/02-inventory-service/produits.png)
