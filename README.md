@@ -74,3 +74,17 @@ Micro-service de gestion des produits : l'entité `Product`, identifiée par un 
 Annuaire des services sur le port 8761. `customer-service` et `inventory-service` s'y enregistrent au démarrage.
 
 ![Eureka](captures/03-discovery-service/eureka.png)
+
+## 4. gateway-service
+
+### Routes statiques
+
+Première version : deux routes déclarées dans `application.yml`, vers `lb://CUSTOMER-SERVICE` et `lb://INVENTORY-SERVICE`. Le préfixe `lb://` fait passer chaque requête par Eureka et l'équilibrage de charge.
+
+**Clients via la passerelle** : `GET http://localhost:8888/api/customers`
+
+![Route statique clients](captures/04-gateway-service/route-statique-clients.png)
+
+**Produits via la passerelle** : `GET http://localhost:8888/api/products`
+
+![Route statique produits](captures/04-gateway-service/route-statique-produits.png)
