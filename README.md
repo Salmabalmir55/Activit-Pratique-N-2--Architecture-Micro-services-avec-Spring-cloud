@@ -140,3 +140,23 @@ Le dossier `config-repo` contient la configuration commune (`application.propert
 **Eureka avec les cinq services enregistrés**
 
 ![Eureka](captures/06-config-service/eureka.png)
+
+## Ordre de démarrage
+
+1. `discovery-service`
+2. `config-service`
+3. `customer-service` et `inventory-service`
+4. `billing-service`
+5. `gateway-service`
+
+## Points d'accès
+
+| Description | URL |
+|---|---|
+| Tableau de bord Eureka | http://localhost:8761 |
+| Clients via la passerelle | http://localhost:8888/customer-service/api/customers |
+| Produits via la passerelle | http://localhost:8888/inventory-service/api/products |
+| Facture complète | http://localhost:8888/billing-service/bills/1 |
+| Configuration de customer-service | http://localhost:9999/customer-service/default |
+| Paramètres de configuration | http://localhost:8081/testConfig1 et http://localhost:8081/testConfig2 |
+| Console H2 de customer-service | http://localhost:8081/h2-console |
