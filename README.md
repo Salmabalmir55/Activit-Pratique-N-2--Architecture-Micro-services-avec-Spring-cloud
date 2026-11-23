@@ -104,3 +104,15 @@ Les routes statiques sont remplacées par un `DiscoveryClientRouteDefinitionLoca
 **Eureka avec la passerelle enregistrée**
 
 ![Eureka avec la passerelle](captures/04-gateway-service/eureka.png)
+
+## 5. billing-service
+
+Micro-service de facturation. Les entités `Bill` et `ProductItem` ne stockent que les identifiants du client et des produits ; les données complètes sont récupérées auprès de `customer-service` et `inventory-service` avec OpenFeign. Au démarrage, une facture est générée pour chaque client.
+
+**Facture complète via la passerelle** : `GET http://localhost:8888/billing-service/bills/1`
+
+![Facture complète](captures/05-billing-service/facture.png)
+
+**Eureka avec les quatre services**
+
+![Eureka](captures/05-billing-service/eureka.png)
