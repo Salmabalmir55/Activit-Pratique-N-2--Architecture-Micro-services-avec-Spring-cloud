@@ -116,3 +116,27 @@ Micro-service de facturation. Les entités `Bill` et `ProductItem` ne stockent q
 **Eureka avec les quatre services**
 
 ![Eureka](captures/05-billing-service/eureka.png)
+
+## 6. Configuration centralisée (config-service)
+
+Le dossier `config-repo` contient la configuration commune (`application.properties`) et celle de chaque service, avec les profils `dev` et `prod`. `config-service` (port 9999) la distribue aux micro-services, qui l'importent avec `spring.config.import=optional:configserver:http://localhost:9999`.
+
+**Configuration de customer-service, profil par défaut** : `GET http://localhost:9999/customer-service/default`
+
+![Configuration par défaut](captures/06-config-service/config-default.png)
+
+**Profil `dev`** : `GET http://localhost:9999/customer-service/dev`
+
+![Configuration dev](captures/06-config-service/config-dev.png)
+
+**Paramètres lus par customer-service**
+
+| `/testConfig1` (`global.params`) | `/testConfig2` (`customer.params`) |
+|---|---|
+| ![testConfig1](captures/06-config-service/test-config1.png) | ![testConfig2](captures/06-config-service/test-config2.png) |
+
+`ConfigTestRestController` est annoté `@RefreshScope` : après une modification dans `config-repo`, un `POST http://localhost:8081/actuator/refresh` recharge les valeurs sans redémarrer le service.
+
+**Eureka avec les cinq services enregistrés**
+
+![Eureka](captures/06-config-service/eureka.png)
